@@ -323,7 +323,7 @@ resource "aws_security_group" "default" {
     from_port       = 0
     to_port         = 0
     protocol        = -1
-    security_groups = ["${var.security_groups}"]
+    security_groups = ["${data.terraform_remote_state.vpc.default_security_group_id}"]
   }
 
   egress {
@@ -340,6 +340,12 @@ resource "aws_security_group" "default" {
 # Full list of options:
 # http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html#command-options-general-elasticbeanstalkmanagedactionsplatformupdate
 #
+
+module "elastic_beanstalk_application" {
+  source = "./modules/elastic-beanstalk"
+  name   = "${var.name}"
+}
+
 resource "aws_elastic_beanstalk_environment" "default" {
   name        = "${var.name}"
   application = "${var.name}"
@@ -1058,7 +1064,7 @@ resource "aws_s3_bucket" "elb_logs" {
 }
 
 module "tld" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-route53-cluster-hostname.git?ref=tags/0.2.5"
+  source    = "./modules/route53"
   namespace = "${var.namespace}"
   name      = "${var.name}"
   stage     = "${var.stage}"

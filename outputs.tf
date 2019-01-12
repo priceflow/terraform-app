@@ -1,5 +1,5 @@
 output "host" {
-    description = "DNS hostname"
+  description = "DNS hostname"
   value       = "${module.tld.hostname}"
 }
 
@@ -9,27 +9,27 @@ output "id" {
 }
 
 output "name" {
-    description = "Name"
+  description = "Name"
   value       = "${aws_elastic_beanstalk_environment.default.name}"
 }
 
 output "security_group_id" {
-    description = "Security group id"
+  description = "Security group id"
   value       = "${aws_security_group.default.id}"
 }
 
 output "elb_dns_name" {
-    description = "ELB technical host"
+  description = "ELB technical host"
   value       = "${aws_elastic_beanstalk_environment.default.cname}"
 }
 
 output "elb_zone_id" {
-    description = "ELB zone id"
+  description = "ELB zone id"
   value       = "${var.alb_zone_id[us-west-2]}"
 }
 
 output "ec2_instance_profile_role_name" {
-    description = "Instance IAM role name"
+  description = "Instance IAM role name"
   value       = "${aws_iam_role.ec2.name}"
 }
 
