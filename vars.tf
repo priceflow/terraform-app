@@ -173,11 +173,6 @@ variable "instance_refresh_enabled" {
   default     = "true"
 }
 
-variable "security_groups" {
-  description = "List of security groups to be allowed to connect to the EC2 instances"
-  type        = "list"
-}
-
 variable "key_name" {
   description = "Name of SSH key that will be deployed on Elastic Beanstalk and DataPipeline instance. The key should be present in AWS"
 }
