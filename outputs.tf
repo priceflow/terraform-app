@@ -25,7 +25,7 @@ output "elb_dns_name" {
 
 output "elb_zone_id" {
   description = "ELB zone id"
-  value       = "${var.alb_zone_id[us-west-2]}"
+  value       = "Z38NKT9BP95V3O"
 }
 
 output "ec2_instance_profile_role_name" {
