@@ -520,7 +520,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = "${var.keypair}"
+    value     = "${var.key_name}"
   }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"

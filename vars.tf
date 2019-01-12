@@ -178,7 +178,7 @@ variable "security_groups" {
   type        = "list"
 }
 
-variable "keypair" {
+variable "key_name" {
   description = "Name of SSH key that will be deployed on Elastic Beanstalk and DataPipeline instance. The key should be present in AWS"
 }
 
