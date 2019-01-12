@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Authentication": {
-    "Bucket": "${BUCKET}",
+    "Bucket": "${EB_BUCKET}",
     "Key": "docker/.dockercfg.json"
   },
   "Image": {
