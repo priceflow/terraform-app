@@ -21,7 +21,7 @@ data "template_file" "dockerrun" {
 
   vars {
     EB_BUCKET = "${var.eb_bucket}"
-    IMAGE     = "${var.image}"
+    IMAGE_TAG = "${var.image_tag}"
   }
 }
 
@@ -595,7 +595,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elb:listener:443"
     name      = "ListenerEnabled"
-    value     = "${var.loadbalancer_certificate_arn == "" ? "false" : "true"}"
+    value     = "true"
   }
   setting {
     namespace = "aws:elb:listener:${var.ssh_listener_port}"
@@ -650,7 +650,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "ListenerEnabled"
-    value     = "${var.loadbalancer_certificate_arn == "" ? "false" : "true"}"
+    value     = "true"
   }
   setting {
     namespace = "aws:elbv2:listener:443"

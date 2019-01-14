@@ -30,7 +30,7 @@ variable "eb_bucket" {
   default     = ""
 }
 
-variable "image" {
+variable "image_tag" {
   description = "Priceflow app image"
   type        = "string"
   default     = "priceflow/priceflow"

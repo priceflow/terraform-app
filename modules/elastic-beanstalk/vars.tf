@@ -1,5 +1,11 @@
 variable "name" {
-  description = "The Name of the application or solution  (e.g. `bastion` or `portal`)"
+  description = "EB name, e.g. 'app' or 'jenkins'"
+  default     = "app"
+}
+
+variable "stage" {
+  description = "Stage, e.g. 'prod', 'staging', 'dev', or 'test'"
+  type        = "string"
 }
 
 variable "description" {

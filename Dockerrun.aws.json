@@ -1,11 +1,11 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Authentication": {
-    "Bucket": "${EB_BUCKET}",
+    "Bucket": "<EB_BUCKET>",
     "Key": "docker/.dockercfg.json"
   },
   "Image": {
-    "Name": "${IMAGE}",
+    "Name": "priceflow/priceflow:<TAG>",
     "Update": "true"
   },
   "Ports": [
