@@ -343,6 +343,7 @@ resource "aws_security_group" "default" {
 
 module "elastic_beanstalk_application" {
   source = "./modules/elastic-beanstalk"
+  stage  = "${var.stage}"
   name   = "${var.name}"
 }
 
