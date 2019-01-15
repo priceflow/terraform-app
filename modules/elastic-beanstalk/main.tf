@@ -3,6 +3,6 @@ resource "aws_s3_bucket" "default" {
 }
 
 resource "aws_elastic_beanstalk_application" "default" {
-  name        = "${var.name}"
+  name        = "priceflow"
   description = "${var.description}"
 }
