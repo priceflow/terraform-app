@@ -676,7 +676,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLPolicy"
-    value     = "${var.loadbalancer_type == "application" ? var.loadbalancer_ssl_policy : ""}"
+    value     = "true"
   }
   setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
