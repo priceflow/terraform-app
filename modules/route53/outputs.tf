@@ -3,7 +3,7 @@ output "hostname" {
   description = "DNS hostname"
 }
 
-output "id" {
+output "zone_id" {
   description = "The ARN of the certificate"
   value       = "${aws_acm_certificate.default.id}"
 }
