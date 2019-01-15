@@ -676,7 +676,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLPolicy"
-    value     = "true"
+    value     = "ELBSecurityPolicy-2016-08"
   }
   setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
