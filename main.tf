@@ -1075,10 +1075,9 @@ resource "aws_s3_bucket" "elb_logs" {
 
 module "tld" {
   source      = "./modules/route53"
-  namespace   = "${var.namespace}"
-  domain_name = "priceflow-${var.stage}.com"
+  domain_name = "${var.zone_name}"
+  subject_alternative_names = "${var.subject_alternative_names}"
   name        = "${var.name}"
-  stage       = "${var.stage}"
   zone_id     = "${var.zone_id}"
   zone_name   = "${var.zone_name}"
   records     = ["${aws_elastic_beanstalk_environment.default.cname}"]

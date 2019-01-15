@@ -338,3 +338,14 @@ variable "force_destroy" {
   description = "Destroy S3 bucket for load balancer logs"
   default     = true
 }
+
+variable "domain_name" {
+  description = "Top level domain name"
+  default     = ""
+}
+
+variable "subject_alternative_names" {
+  description = "A list of domains that should be SANs in the issued certificate"
+  type        = "list"
+  default     = []
+}
