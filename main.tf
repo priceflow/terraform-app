@@ -601,7 +601,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elb:listener:443"
     name      = "SSLCertificateId"
-    value     = "${data.terraform_remote_state.postgrest.arn}"
+    value     = "${data.terraform_remote_state.postgrest.certificate_arn}"
   }
   setting {
     namespace = "aws:elb:listener:443"
@@ -671,7 +671,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLCertificateArns"
-    value     = "${data.terraform_remote_state.postgrest.arn}"
+    value     = "${data.terraform_remote_state.postgrest.certificate_arn}"
   }
   setting {
     namespace = "aws:elbv2:listener:443"
