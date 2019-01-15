@@ -1080,7 +1080,7 @@ module "tld" {
   name        = "${var.name}"
   stage       = "${var.stage}"
   zone_id     = "${var.zone_id}"
+  zone_name   = "${var.zone_name}"
   records     = ["${aws_elastic_beanstalk_environment.default.cname}"]
   enabled     = "${length(var.zone_id) > 0 ? "true" : "false"}"
 }
-

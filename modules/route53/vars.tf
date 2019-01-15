@@ -3,14 +3,6 @@ variable "enabled" {
   default     = "true"
 }
 
-variable "namespace" {
-  description = "Namespace (e.g. `cp` or `cloudposse`)"
-}
-
-variable "stage" {
-  description = "Stage (e.g. `prod`, `dev`, `staging`)"
-}
-
 variable "name" {
   description = "The Name of the application or solution  (e.g. `bastion` or `portal`)"
   default     = "dns"
@@ -26,18 +18,13 @@ variable "records" {
   type        = "list"
 }
 
-variable "type" {
-  description = "Type"
-  default     = "CNAME"
-}
-
-variable "ttl" {
-  description = "The TTL of the record to add to the DNS zone to complete certificate validation"
-  default     = "300"
-}
-
 variable "domain_name" {
   description = "A domain name for which the certificate should be issued"
+  type        = "string"
+}
+
+variable "zone_name" {
+  description = "Hosted zone name"
   type        = "string"
 }
 
@@ -63,9 +50,4 @@ variable "subject_alternative_names" {
   description = "A list of domains that should be SANs in the issued certificate"
   type        = "list"
   default     = []
-}
-
-variable "hosted_zone_id" {
-  description = "ID of the hosted zone to contain this record"
-  default     = ""
 }
