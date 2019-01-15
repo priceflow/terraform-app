@@ -354,12 +354,11 @@ resource "aws_security_group" "default" {
 module "elastic_beanstalk_application" {
   source = "./modules/elastic-beanstalk"
   stage  = "${var.stage}"
-  name   = "${var.name}"
 }
 
 resource "aws_elastic_beanstalk_environment" "default" {
   name        = "${var.name}"
-  application = "${var.name}"
+  application = "${module.elastic_beanstalk_application.app_name}"
   description = "${var.description}"
 
   tier                = "WebServer"
