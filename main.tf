@@ -16,6 +16,16 @@ data "terraform_remote_state" "vpc" {
   }
 }
 
+data "terraform_remote_state" "postgrest" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_bucket}"
+    key    = "postgrest/terraform.tfstate"
+    region = "us-west-2"
+  }
+}
+
 data "template_file" "dockerrun" {
   template = "${file("${path.module}/Dockerrun.aws.json")}"
 
@@ -576,7 +586,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elb:listener"
     name      = "ListenerEnabled"
-    value     = "${var.http_listener_enabled  == "true" || var.loadbalancer_certificate_arn == "" ? "true" : "false"}"
+    value     = "false"
   }
   setting {
     namespace = "aws:elb:listener:443"
@@ -591,7 +601,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elb:listener:443"
     name      = "SSLCertificateId"
-    value     = "${var.loadbalancer_certificate_arn}"
+    value     = "${data.terraform_remote_state.postgrest.acm_request_certificate}"
   }
   setting {
     namespace = "aws:elb:listener:443"
@@ -646,7 +656,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:default"
     name      = "ListenerEnabled"
-    value     = "${var.http_listener_enabled == "true" || var.loadbalancer_certificate_arn == "" ? "true" : "false"}"
+    value     = "false"
   }
   setting {
     namespace = "aws:elbv2:listener:443"
@@ -661,7 +671,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLCertificateArns"
-    value     = "${var.loadbalancer_certificate_arn}"
+    value     = "${data.terraform_remote_state.postgrest.acm_request_certificate}"
   }
   setting {
     namespace = "aws:elbv2:listener:443"
