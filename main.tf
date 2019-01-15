@@ -586,7 +586,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elb:listener"
     name      = "ListenerEnabled"
-    value     = "false"
+    value     = "true"
   }
   setting {
     namespace = "aws:elb:listener:443"
