@@ -148,11 +148,6 @@ variable "zone_id" {
   default     = ""
 }
 
-variable "zone_name" {
-  description = "Hosted zone name"
-  type        = "string"
-}
-
 variable "config_source" {
   description = "S3 source for config"
   default     = ""
