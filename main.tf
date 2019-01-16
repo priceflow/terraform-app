@@ -1066,6 +1066,26 @@ data "aws_iam_policy_document" "elb_logs" {
   }
 }
 
+resource "aws_lb_listener" "http" {
+  load_balancer_arn = "${aws_elastic_beanstalk_environment.default.load_balancers}"
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "aws_s3_bucket" "elb_logs" {
   bucket        = "${var.name}-logs"
   acl           = "private"
