@@ -1,23 +1,3 @@
-variable "enabled" {
-  description = "Set to false to prevent the module from creating any resources"
-  default     = "true"
-}
-
-variable "name" {
-  description = "The Name of the application or solution  (e.g. `bastion` or `portal`)"
-  default     = "dns"
-}
-
-variable "zone_id" {
-  description = "Route53 DNS Zone id"
-  default     = ""
-}
-
-variable "records" {
-  description = "Records"
-  type        = "list"
-}
-
 variable "domain_name" {
   description = "A domain name for which the certificate should be issued"
   type        = "string"
