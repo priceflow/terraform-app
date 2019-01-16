@@ -1073,13 +1073,18 @@ resource "aws_s3_bucket" "elb_logs" {
   policy        = "${data.aws_iam_policy_document.elb_logs.json}"
 }
 
-module "tld" {
-  source                    = "./modules/route53"
-  domain_name               = "${var.zone_name}"
-  subject_alternative_names = "${var.subject_alternative_names}"
-  name                      = "${var.name}"
-  zone_id                   = "${var.zone_id}"
-  zone_name                 = "${var.zone_name}"
-  records                   = ["${aws_elastic_beanstalk_environment.default.cname}"]
-  enabled                   = "${length(var.zone_id) > 0 ? "true" : "false"}"
+module "acm_request_certificate" {
+  source                            = "git::git@github.com:priceflow/terraform-postgrest.git//?ref=v0.0.58//modules/route53"
+  domain_name                       = "${var.domain_name}"
+  process_domain_validation_options = "true"
+  ttl                               = "300"
+  subject_alternative_names         = ["app.${var.domain_name}"]
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = "${var.zone_id}"
+  name    = "app.${var.domain_name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["${aws_elastic_beanstalk_environment.default.cname}"]
 }
