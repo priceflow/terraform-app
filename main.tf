@@ -16,14 +16,12 @@ data "terraform_remote_state" "vpc" {
   }
 }
 
-data "terraform_remote_state" "postgrest" {
-  backend = "s3"
-
-  config {
-    bucket = "${var.remote_bucket}"
-    key    = "postgrest/terraform.tfstate"
-    region = "us-west-2"
-  }
+module "acm_request_certificate" {
+  source                            = "git::git@github.com:priceflow/terraform-acm-certificate.git//?ref=v0.0.1"
+  domain_name                       = "${var.domain_name}"
+  process_domain_validation_options = "true"
+  ttl                               = "300"
+  subject_alternative_names         = ["app.${var.domain_name}"]
 }
 
 data "template_file" "dockerrun" {
@@ -600,7 +598,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elb:listener:443"
     name      = "SSLCertificateId"
-    value     = "${data.terraform_remote_state.postgrest.certificate_arn}"
+    value     = "${module.acm_request_certificate.certificate_arn}"
   }
   setting {
     namespace = "aws:elb:listener:443"
@@ -670,7 +668,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLCertificateArns"
-    value     = "${data.terraform_remote_state.postgrest.certificate_arn}"
+    value     = "${module.acm_request_certificate.certificate_arn}"
   }
   setting {
     namespace = "aws:elbv2:listener:443"
@@ -1091,14 +1089,6 @@ resource "aws_s3_bucket" "elb_logs" {
   acl           = "private"
   force_destroy = "${var.force_destroy}"
   policy        = "${data.aws_iam_policy_document.elb_logs.json}"
-}
-
-module "acm_request_certificate" {
-  source                            = "git::git@github.com:priceflow/terraform-acm-certificate.git//?ref=v0.0.1"
-  domain_name                       = "${var.domain_name}"
-  process_domain_validation_options = "true"
-  ttl                               = "300"
-  subject_alternative_names         = ["app.${var.domain_name}"]
 }
 
 resource "aws_route53_record" "www" {
