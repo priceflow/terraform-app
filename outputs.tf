@@ -1,6 +1,6 @@
-output "host" {
+output "hostname" {
+  value       = "${join("", aws_route53_record.www.*.fqdn)}"
   description = "DNS hostname"
-  value       = "${module.acm_request_certificate.hostname}"
 }
 
 output "id" {
