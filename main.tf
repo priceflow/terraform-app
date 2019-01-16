@@ -1067,7 +1067,7 @@ data "aws_iam_policy_document" "elb_logs" {
 }
 
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = "${aws_elastic_beanstalk_environment.default.load_balancers}"
+  load_balancer_arn = "${element(aws_elastic_beanstalk_environment.default.load_balancers, 0)}"
   port              = "80"
   protocol          = "HTTP"
 
