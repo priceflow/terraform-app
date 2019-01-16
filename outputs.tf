@@ -92,7 +92,3 @@ output "certificate_arn" {
   description = "The ARN of the certificate"
   value       = "${module.acm_request_certificate.id}"
 }
-
-
-
-

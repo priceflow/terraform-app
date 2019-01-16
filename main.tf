@@ -1094,7 +1094,7 @@ resource "aws_s3_bucket" "elb_logs" {
 }
 
 module "acm_request_certificate" {
-  source                            = "git::git@github.com:priceflow/terraform-postgrest.git//?ref=v0.0.63//modules/route53"
+  source                            = "git::git@github.com:priceflow/terraform-acm-certificate.git//?ref=v0.0.1"
   domain_name                       = "${var.domain_name}"
   process_domain_validation_options = "true"
   ttl                               = "300"
