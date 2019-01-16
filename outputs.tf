@@ -1,6 +1,6 @@
 output "host" {
   description = "DNS hostname"
-  value       = "${module.tld.hostname}"
+  value       = "${module.acm_request_certificate.hostname}"
 }
 
 output "id" {
