@@ -130,7 +130,7 @@ variable "loadbalancer_managed_security_group" {
 
 variable "http_listener_enabled" {
   description = "Enable port 80 (http)"
-  default     = "false"
+  default     = "true"
 }
 
 variable "ssh_listener_enabled" {
