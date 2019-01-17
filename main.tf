@@ -334,6 +334,12 @@ resource "aws_security_group" "default" {
     security_groups = ["${data.terraform_remote_state.vpc.default_security_group_id}"]
   }
 
+  ingress {
+    protocol  = "tcp"
+    from_port = 80
+    to_port   = 80
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
