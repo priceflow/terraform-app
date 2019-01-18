@@ -571,7 +571,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elb:loadbalancer"
     name      = "SecurityGroups"
-    value     = "${aws_security_group.default.id}"
+    value     = "${join(",", var.loadbalancer_security_groups)}"
   }
   setting {
     namespace = "aws:elb:loadbalancer"
@@ -651,7 +651,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:loadbalancer"
     name      = "SecurityGroups"
-    value     = "${aws_security_group.default.id}"
+    value     = "${join(",", var.loadbalancer_security_groups)}"
   }
   setting {
     namespace = "aws:elbv2:loadbalancer"
@@ -661,7 +661,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:default"
     name      = "ListenerEnabled"
-    value     = "true"
+    value     = "false"
   }
   setting {
     namespace = "aws:elbv2:listener:443"
