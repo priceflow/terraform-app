@@ -87,8 +87,3 @@ output "triggers" {
   description = "Autoscaling triggers in use by this environment."
   value       = "${aws_elastic_beanstalk_environment.default.triggers}"
 }
-
-output "certificate_arn" {
-  description = "The ARN of the certificate"
-  value       = "${module.acm_request_certificate.arn}"
-}

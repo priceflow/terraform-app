@@ -17,9 +17,9 @@ data "terraform_remote_state" "vpc" {
 }
 
 data "terraform_remote_state" "cert" {
-    backend = "s3"
+  backend = "s3"
 
-    config {
+  config {
     bucket = "${var.remote_bucket}"
     key    = "rds/terraform.tfstate"
     region = "us-west-2"
@@ -1100,7 +1100,7 @@ resource "aws_s3_bucket" "elb_logs" {
 }
 
 resource "aws_route53_record" "www" {
-  zone_id = "${var.zone_id}"
+  zone_id = "${data.terraform_remote_state.cert.zone_id}"
   name    = "app.${var.domain_name}"
   type    = "CNAME"
   ttl     = "300"
