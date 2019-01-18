@@ -21,7 +21,7 @@ data "terraform_remote_state" "cert" {
 
   config {
     bucket = "${var.remote_bucket}"
-    key    = "rds/terraform.tfstate"
+    key    = "cert/terraform.tfstate"
     region = "us-west-2"
   }
 }
