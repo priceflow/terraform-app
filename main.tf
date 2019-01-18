@@ -651,7 +651,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:loadbalancer"
     name      = "SecurityGroups"
-    value     = "${join(",", var.loadbalancer_security_groups)}"
+    value     = "${aws_security_group.default.id}"
   }
   setting {
     namespace = "aws:elbv2:loadbalancer"
