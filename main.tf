@@ -16,12 +16,14 @@ data "terraform_remote_state" "vpc" {
   }
 }
 
-module "acm_request_certificate" {
-  source                            = "git::git@github.com:priceflow/terraform-acm-certificate.git//?ref=v0.0.1"
-  domain_name                       = "${var.domain_name}"
-  process_domain_validation_options = "true"
-  ttl                               = "300"
-  subject_alternative_names         = ["app.${var.domain_name}"]
+data "terraform_remote_state" "cert" {
+    backend = "s3"
+
+    config {
+    bucket = "${var.remote_bucket}"
+    key    = "rds/terraform.tfstate"
+    region = "us-west-2"
+  }
 }
 
 data "template_file" "dockerrun" {
@@ -604,7 +606,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elb:listener:443"
     name      = "SSLCertificateId"
-    value     = "${module.acm_request_certificate.arn}"
+    value     = "${data.terraform_remote_state.cert.arn}"
   }
   setting {
     namespace = "aws:elb:listener:443"
@@ -674,7 +676,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLCertificateArns"
-    value     = "${module.acm_request_certificate.arn}"
+    value     = "${data.terraform_remote_state.cert.arn}"
   }
   setting {
     namespace = "aws:elbv2:listener:443"
